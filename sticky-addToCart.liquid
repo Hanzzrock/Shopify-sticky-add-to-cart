@@ -1,0 +1,176 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+{% if product.title contains "" %}
+    <div id="addtocart-sticky" style="display: none;">
+
+       <div class="hs-image-thumb page-width">
+
+         <div class="hs-thumb-and-title">       
+        <div class="hs-bar-content-image">
+          {% if product.images.size > 1 %}
+  <div id="product-image" class="hs-bar-featured-image">
+    <img class="hs-bar-featured-image" src="{{ product.featured_image.src | img_url: 'x100' }}" alt="{{ product.featured_image.alt }}" />
+  </div>
+{% endif %}
+ 
+        </div>        
+        <div class="hs-bar-content-title">       
+      <span class="hs-sticky-bar-add-to-cart-product-title">        
+      <div class="hs-sticky-bar-product-title" style="display: block;">
+      {{ product.title }}
+      </div>        
+        <div class="hs-product-review" style="display: none;">
+        <span class="shopify-product-reviews-badge" data-id="7537269342456"></span>
+        </div>
+        <div class="hs-product-price-container" style="display: flex; flex-direction: row;">        
+        <div class="hs-checkout-bar-compare-at-price" style="display: block;">
+       </div>
+        <div class="hs-checkout-bar-price" style="display: block;">
+        <span class="hs-money-price hs-compare-price-active">
+        <span class="money">{{ product.price | money_without_trailing_zeros }}
+         </span></span></div>        
+         </div>       
+         </span>        
+         </div>        
+         </div>
+         
+       </div>
+<div class="page-widthx">
+<!--  {% if product.variants.size > 1 %}
+  
+  <select name="id" id="variant-select" class="hs-content-checkout-bar .hs-select-option-checkout-bar">
+    {% for variant in product.variants %}
+      {% if variant.available %}
+        <option value="{{ variant.id }}" data-image="{{ variant.featured_image.src | img_url: '50x' }}">{{ variant.title }}</option>
+      {% else %}
+       
+      {% endif %}
+    {% endfor %}
+  </select>
+{% endif %} -->
+</div>
+      <div class="addtocart_sticky_wrap page-width">
+        
+        <button class="Button Button--primary_custom sticky-add-to-cart" type="button" onclick="$('.ProductForm__AddToCart').click()">Add To Cart</button>
+<!--         <p>FREE INTERNATIONAL SHIPPING!</p> -->
+      </div>
+    </div>
+  {%- else -%}
+    <div id="addtocart-sticky" style="display: none;">
+      <div class="addtocart_sticky_wrap page-width">
+        <button class="Button Button--primary sticky-add-to-cart" type="button" onclick="$('.ProductForm__AddToCart').click()">Add To Cart</button>
+<!--         <p>FREE INTERNATIONAL SHIPPING!</p> -->
+      </div>
+    </div>
+{% endif %}
+<script>
+    // Showing sticky add to cart
+    $.fn.isInViewport = function() {
+  var elementTop = $(this).offset().top;
+  var elementBottom = elementTop + $(this).outerHeight();
+
+  var viewportTop = $(window).scrollTop();
+  var viewportBottom = viewportTop + $(window).height();
+
+  return elementBottom > viewportTop && elementTop < viewportBottom;
+};
+$(document).ready(function(){
+  $(window).on('resize scroll', function() {
+
+    if ($('.ProductForm').isInViewport()) {
+      $('#addtocart-sticky').css('display','none');
+    } else {
+        $('#addtocart-sticky').css('display','block');
+    }
+  });
+});
+</script>
+<style>
+  #addtocart-sticky{
+    display: none;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 99999;
+    background: #fff;
+    padding-top: 12px;
+    padding-bottom: 10px;
+    transition: .25s all ease-in-out;
+  }
+  
+  #addtocart-sticky button{
+    vertical-align: middle;
+    width: 100%;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #fff;
+  }
+  #addtocart-sticky p {
+    font-weight: bold;
+    color: #000;
+  }
+  .addtocart_sticky_wrap.page-width {
+    text-align: center;
+    padding: 0 20px;
+  }
+  .hs-image-thumb {
+    display: flex;
+    padding: 0 20px;
+    padding-bottom: 10px;
+}
+
+
+.hs-thumb-and-title {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+img.hs-bar-featured-image {
+    margin-right: 10px;
+    max-height: 55px;
+    max-width: 55px;
+    height: auto !important;
+    width: auto !important;
+}
+
+  select#variant-select {
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+    background-position: right center !important;
+    background-image: url(//cdn.shopify.com/s/files/1/0251/1021/6792/t/12/assets/ico-select.svg) !important;
+    background-repeat: no-repeat !important;
+    background-position: right 10px center !important;
+    padding-right: 32px !important;
+    text-indent: 0.01px !important;
+    text-overflow: "" !important;
+    cursor: pointer !important;
+    padding-top: 0px !important;
+    padding-left: 26px !important;
+    padding-bottom: 0px !important;
+    height: 41px !important;
+    min-height: 41px !important;
+    margin: 0;
+    appearance: none;
+    width: 100%;
+    text-overflow: ellipsis;
+    box-shadow: none !important;
+    outline: none !important;
+    outline-offset: inherit !important;
+}
+  .page-widthx {
+    padding: 0 20px;
+    padding-bottom: 5px;
+}
+  .hs-sticky-bar-product-title {
+    font-weight: 700;
+}
+  @media only screen and (min-width:767px){
+    #addtocart-sticky{
+      display: none !important;
+    }
+  }
+</style>
+
